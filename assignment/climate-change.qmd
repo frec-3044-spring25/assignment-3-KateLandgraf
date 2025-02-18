@@ -163,7 +163,7 @@ The line for the 10-year rolling average is smoother than that of the 5-year rol
 By examining the data here, what evidence do you find or not find for such a pause? 
 
 **Answer 9:**
-
+Looking at the blue 5-year running average line, there does appear to be a small plateau between 2000 and 2010 but this trend minimally shows up in the 10-rolling average and not at all in the 20-year running average. Looking at the past trends, this so called plateau is likely random and not a real pause in global warming rates.
 
 ## Longer term trends in CO2 Records
 
@@ -204,10 +204,10 @@ Your answer to Question 10 is going to be a mix of code chunks and text that you
 - Describe your conclusions to the question "How do recent atmospheric CO2 levels compare to historical levels?" using your plot as supporting evidence.   
 
 **Answer 10:**
+The first column is the depth at which the ice was taken from in meters. The second column is the age of the ice that was collected in years before present. The third column is the mean age of the air that was in the collected sample in years before present. The last column is the co2 concentration in the air in the sample.
 
 ```{r}
-
-
+historic <- read.table('vostok.icecore.co2', skip = 21, col.names = c('depth', 'ice_age', 'mean_air_age', 'co2'))
 ```
 
 # Render and committing
