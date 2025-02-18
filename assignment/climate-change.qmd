@@ -212,8 +212,33 @@ The temporal resolution is years because that is smallest time interval scientis
 historic <- read.table('vostok.icecore.co2', skip = 21, col.names = c('depth', 'ice_age', 'mean_air_age', 'co2'))
 ```
 
+```{r}
+historic <- historic |> 
+  mutate(
+    year = 2003 - mean_air_age
+  )
+```
 
+```{r}
+ggplot(data = historic, aes(x=year,y=co2)) +
+  geom_line() +
+  labs(x='Year',y='CO2 Concentration (ppmv)')
+```
 
+```{r}
+co2_year <- co2 |> 
+  group_by(year) |> 
+  summarize(co2 = mean(monthly_average, na.rm = TRUE))
+co2_combined <- bind_rows(historic, co2_year)
+```
+
+```{r}
+ggplot(data = co2_combined, aes(x=year,y=co2)) +
+  geom_line() +
+  labs(x='Year',y='CO2 Concentration (ppmv)')
+```
+
+Recent atmospheric CO2 levels are significantly higher than historic levels. While historic CO2 levels peaked around 300 ppm, the current trend is approaching double these peaks, 600 ppm.
 
 # Render and committing
 
