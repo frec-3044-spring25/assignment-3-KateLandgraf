@@ -91,6 +91,15 @@ Construct the necessary R code to import and prepare for plotting the following 
 You'll need to determine the file's delimiter and any comments or skips. You will also need to be sure that you have column names. You will not directly use the code above to read the CO2 data, but that code provides helpful tips for reading the data.
 
 **Answer 4:**
+```{r message=FALSE}
+temp <-  read_table("https://data.giss.nasa.gov/gistemp/graphs/graph_data/Global_Mean_Estimates_based_on_Land_and_Ocean_Data/graph.txt", 
+                    col_names = c("year", "no_smoothing", "lowess"),
+                    skip = 5,
+                    na = c("-1", "-99.99"))
+
+temp
+```
+
 
 **Question 5:**
 
