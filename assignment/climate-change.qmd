@@ -204,11 +204,16 @@ Your answer to Question 10 is going to be a mix of code chunks and text that you
 - Describe your conclusions to the question "How do recent atmospheric CO2 levels compare to historical levels?" using your plot as supporting evidence.   
 
 **Answer 10:**
-The first column is the depth at which the ice was taken from in meters. The second column is the age of the ice that was collected in years before present. The third column is the mean age of the air that was in the collected sample in years before present. The last column is the co2 concentration in the air in the sample.
+The first column is the depth at which the ice was taken from in meters. The second column is the age of the ice that was collected in years before present. The third column is the mean age of the air that was in the collected sample in years before present. The last column is the CO2 concentration in the air in the sample.   
+
+The temporal resolution is years because that is smallest time interval scientists are able to distinguish for the age of the ice and the age of the air.
 
 ```{r}
 historic <- read.table('vostok.icecore.co2', skip = 21, col.names = c('depth', 'ice_age', 'mean_air_age', 'co2'))
 ```
+
+
+
 
 # Render and committing
 
