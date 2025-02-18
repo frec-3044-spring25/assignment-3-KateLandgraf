@@ -106,6 +106,12 @@ temp
 Plot the trend in global mean temperatures over time.  Describe what you see in the plot and how you interpret the patterns you observe.
 
 **Answer 5:**
+```{r}
+ggplot(temp, aes(x=year, y=no_smoothing)) +
+  geom_line() +
+  labs(x='Year', y='Global Temperature Anomaly (Degrees Celsius)')
+```
+Between 1880 and 1930 the global temperature remained roughly the same and stayed under the long-term average. Around 1940 to 1975 the global temperature was higher than the previous 60 years but bounced around the long-term average. In 1980, an upward trend clearly emerges and becomes steeper around 2010.
 
 ## Evaluating the evidence for a "Pause" in warming?
 
@@ -118,6 +124,7 @@ You will use rolling averages to help you explore the evidence for a pause. Sinc
 Use a search engine (e.g., Google) or a chat LLM to find out how to calculate a rolling average in R. What search term or chat LLM prompt did you use?  What website or answer from the chat LLM did you end up using?  How much did you need to modify the code from the website or chat LLM to answer the question successfully?
 
 **Answer 6:**
+I Googled 'rolling average in r' and looked at https://www.statology.org/rolling-average-in-r/ and https://www.geeksforgeeks.org/how-to-calculate-a-rolling-average-in-r/ for reference. I only had to modify the dataframe and column names and the k parameter from their examples.
 
 **Question 7:**
 
@@ -125,18 +132,38 @@ Use a search engine (e.g., Google) or a chat LLM to find out how to calculate a 
 - Create a data frame from the annual temperature anomaly data (from Question 4) with three new columns: 5-year running averages, 10-year running averages, and 20-year running averages.
 
 **Answer 7:**
+A 5-year average would be the average of 5 consecutive annual averages whereas an annual average is the average of values collected within that year.
+```{r message = FALSE}
+library(zoo)
+temp_roll_means <- temp |> 
+  mutate(avg_temp5 = rollmean(no_smoothing, k=5, fill = NA, align = 'right')) |> 
+  mutate(avg_temp10 = rollmean(no_smoothing, k=10, fill = NA, align = 'right')) |> 
+  mutate(avg_temp20 = rollmean(no_smoothing, k=20, fill = NA, align = 'right'))
+
+temp_roll_means
+```
+
 
 **Question 8:**
 
 Plot the different averages on the *same plot* and describe what differences you see and why.  
 
 **Answer 8:**
+```{r warning = FALSE}
+ggplot(data = temp_roll_means) +
+  geom_line(aes(x=year, y=avg_temp5), color = 'blue', size = 1) +
+  geom_line(aes(x=year, y=avg_temp10), color = 'red', size = 1) +
+  geom_line(aes(x=year, y=avg_temp20), color = 'darkgreen', size = 1) +
+  labs(x='Year', y='Temperature Anomoly (C)')
+```
+The line for the 10-year rolling average is smoother than that of the 5-year rolling average, and the 20-year rolling average line is even smoother while all showing the same general trends. The smoothness is a result of each individual annual temperature anomaly having a lesser influence when the rolling average is over a greater number of years. This is also why the 20-year rolling average generally has a smaller slope than the other two lines.
 
 **Question 9:**
 
 By examining the data here, what evidence do you find or not find for such a pause? 
 
 **Answer 9:**
+
 
 ## Longer term trends in CO2 Records
 
